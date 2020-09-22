@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.itrip.dao.UserMapper">
+    <!--根据条件查询用户-->
+    <select id="getUsersByParams" parameterType="java.util.Map" resultType="cn.itrip.beans.pojo.User">
+        SELECT * FROM smbms_user
+        WHERE 1=1
+        <if test="userName != null and userName !=''">
+            AND userName LIKE CONCAT('%',#{userName},'%')
+        </if>
+        LIMIT #{from},#{limit}
+    </select>
+
+    <!--根据调价查询用户个数-->
+    <select id="getUserCountByParams" parameterType="java.util.Map" resultType="int">
+        SELECT COUNT(1) FROM smbms_user
+        WHERE 1=1
+        <if test="userName != null and userName !=''">
+            AND userName LIKE CONCAT('%',#{userName},'%')
+        </if>
+    </select>
+</mapper>
